@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
-// import { Web3Storage } from "web3.storage";
 import { pinata } from "../utils/pinata";
 import contractABI from "../../artifacts/contracts/GenomicDataStorage.sol/GenomicDataStorage.json"; // Import your contract ABI
 
-const CONTRACT_ADDRESS = "contract_address";
-const WEB3_STORAGE_API_KEY = "YOUR_WEB3_STORAGE_API_KEY";
+const CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
 export default function App() {
   const [account, setAccount] = useState(null);
@@ -26,7 +24,6 @@ export default function App() {
   }, []);
 
   const connectWallet = async () => {
-    // checking meta mask existance 
     if (!provider) return;
     const accounts = await provider.send("eth_requestAccounts", []);
     setAccount(accounts[0]);
@@ -36,9 +33,10 @@ export default function App() {
 
   const uploadToIPFS = async () => {
     try {
-      if(!file) return alert("Select a file first");
-      const upload = await pinata.upload.public.file(file)
+      if (!file) return alert("Select a file first");
+      const upload = await pinata.upload.public.file(file);
       console.log(upload);
+      setIpfsHash(upload);
       alert(`File uploaded! IPFS Hash: ${upload}`);
     } catch (error) {
       console.log(error);
