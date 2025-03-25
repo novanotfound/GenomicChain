@@ -8,6 +8,21 @@ Try running some of the following tasks:
 npx hardhat help
 npx hardhat test
 REPORT_GAS=true npx hardhat test
+```
+### To start a blockchain node
+```
 npx hardhat node
+```
+
+### For compile the the solidity contracts
+```
+npx hardhat compile
+```
+
+### For deploying the contract on the node
+```
+npx hardhat run scripts/deploy.js --network localhost
+```
+```
 npx hardhat ignition deploy ./ignition/modules/Lock.js
 ```
