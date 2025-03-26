@@ -47,8 +47,9 @@ contract GenomicDataStorage {
         users[userAddress] = User(Role.NormalUser, true);
     }
     
-    function uploadFile(string memory ipfsHash) external onlyUser {
-        require(bytes(files[ipfsHash].ipfsHash).length == 0, "File already exists");
+    function uploadFile(string memory ipfsHash) external {
+        // require(bytes(files[ipfsHash].ipfsHash).length == 0, "File already exists");
+        emit FileUploaded(msg.sender, ipfsHash);
         
         files[ipfsHash].ipfsHash = ipfsHash;
         files[ipfsHash].owner = msg.sender;
