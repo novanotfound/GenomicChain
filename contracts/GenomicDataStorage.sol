@@ -47,13 +47,18 @@ contract GenomicDataStorage {
         users[userAddress] = User(Role.NormalUser, true);
     }
     
-    function uploadFile(string memory ipfsHash) external {
-        // require(bytes(files[ipfsHash].ipfsHash).length == 0, "File already exists");
-        emit FileUploaded(msg.sender, ipfsHash);
-        
+    function uploadFile(string memory ipfsHash) external payable {
+        // Require a minimum payment (e.g., 0.01 Ether)
+        require(msg.value >= 0.01 ether, "Insufficient payment");
+
+        // Ensure the file doesn't already exist
+        require(bytes(files[ipfsHash].ipfsHash).length == 0, "File already exists");
+
+        // Store the file details
         files[ipfsHash].ipfsHash = ipfsHash;
         files[ipfsHash].owner = msg.sender;
-        
+
+        // Emit the FileUploaded event
         emit FileUploaded(msg.sender, ipfsHash);
     }
     

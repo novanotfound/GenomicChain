@@ -7,9 +7,11 @@ import Link from 'next/link';
 import UploadModal from '@/components/UploadModal';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {ethers} from "ethers";
+// import {ethers} from "ethers";
+
 import {notify} from "../../utils/popups";
 import {connectWallet} from "../../utils/wallet";
+
 
 const mockData = {
   totalFiles: 12,

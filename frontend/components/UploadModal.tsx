@@ -3,6 +3,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiX } from 'react-icons/fi';
+import {pinata} from '../utils/pinata.js'
+import { getContract } from "../utils/getContract";
+import { hashCID } from "../utils/generateHash";
 
 interface UploadModalProps {
   isOpen: boolean;
@@ -15,8 +18,35 @@ const UploadModal = ({ isOpen, onClose }: UploadModalProps) => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
   const [isUploaded, setIsUploaded] = useState(false);
+  const [ipfsHash, setIpfsHash] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
+
+    const uploadToIPFS = async () => {
+        try {
+          if(!file) return alert("Select a file first");
+          const upload = await pinata.upload.public.file(file)
+          console.log(upload);
+          const hashedCID = hashCID(upload.cid);
+          setIpfsHash(hashedCID);
+          console.log(hashedCID);
+          alert(`File uploaded! IPFS Hash: ${upload}`);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+  
+    const uploadFile = async () => {
+      try {
+        const contract = await getContract();
+        const tx = await contract.uploadFile(ipfsHash);
+        await tx.wait();
+        // setMessage("File uploaded successfully!");
+      } catch (error) {
+        console.error(error);
+        // setMessage("Error uploading file.");
+      }
+    };
 
   // Close modal when clicking outside
   useEffect(() => {
@@ -109,6 +139,8 @@ const UploadModal = ({ isOpen, onClose }: UploadModalProps) => {
       }
       setUploadProgress(Math.round(progress));
     }, 300);
+    uploadToIPFS();
+    uploadFile();
   };
 
   const resetUpload = () => {
