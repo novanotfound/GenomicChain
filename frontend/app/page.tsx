@@ -2,6 +2,7 @@ import HeroSection from '@/components/HeroSection';
 import FeatureSection from '@/components/FeatureSection';
 import FAQSection from '@/components/FAQSection';
 import CTASection from '@/components/CTASection';
+import { ToastContainer } from 'react-toastify';
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <FeatureSection />
       <FAQSection />
       <CTASection />
+      <ToastContainer />
     </main>
   );
 } 

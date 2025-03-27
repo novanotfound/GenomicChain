@@ -5,6 +5,11 @@ import { motion } from 'framer-motion';
 import { FiUpload, FiDownload, FiUsers, FiFile, FiLock, FiUnlock, FiActivity, FiBarChart2, FiAlertTriangle } from 'react-icons/fi';
 import Link from 'next/link';
 import UploadModal from '@/components/UploadModal';
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {ethers} from "ethers";
+import {notify} from "../../utils/popups";
+import {connectWallet} from "../../utils/wallet";
 
 const mockData = {
   totalFiles: 12,
@@ -27,6 +32,15 @@ const mockData = {
 const DashboardPage = () => {
   const [activeTab, setActiveTab] = useState('files');
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
+  const [walletAddress, setWalletAddress] = useState('');
+
+  const handleConnect = async () => {
+    const wallet = await connectWallet();
+    if (wallet) {
+        setWalletAddress(wallet.address);
+        notify("Wallet connected");
+    }
+};
   
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-20">
@@ -54,6 +68,12 @@ const DashboardPage = () => {
               <FiUpload className="w-4 h-4" />
               <span>Upload DNA Data</span>
             </button>
+            {!walletAddress && <button
+                onClick={handleConnect}
+                className="dna-button flex items-center space-x-2 py-2 px-4 rounded-md"
+            >
+                Connect Wallet
+            </button>}
           </div>
         </motion.div>
         
@@ -237,7 +257,7 @@ const DashboardPage = () => {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                           <div className="flex space-x-3">
-                            <button className="text-dna-blue hover:text-dna-blue-dark">
+                            <button className="text-dna-blue hover:text-dna-blue-dark" title="Download">
                               <FiDownload className="w-4 h-4" />
                             </button>
                             <button className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
@@ -358,6 +378,19 @@ const DashboardPage = () => {
           </div>
         </motion.div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Slide}
+      />
     </div>
   );
 };
