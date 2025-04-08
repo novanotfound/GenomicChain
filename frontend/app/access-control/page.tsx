@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiUsers, FiUserCheck, FiUserX, FiSearch, FiFilter, FiPlus, FiCheck, FiX, FiAlertTriangle, FiClock } from 'react-icons/fi';
+import { getContract } from '@/utils/getContract';
 import Link from 'next/link';
 
 const mockData = {
@@ -13,6 +14,7 @@ const mockData = {
         name: 'Dr. Sarah Johnson', 
         organization: 'Medical Research Institute',
       },
+      address: '0x1234567890abcdef1234567890abcdef12345678',
       type: 'Researcher',
       date: '2 hours ago',
       files: ['genome_sequence_v1.fasta'],
@@ -25,6 +27,7 @@ const mockData = {
         name: 'BioCorp Labs', 
         organization: 'Pharmaceutical Research',
       },
+      address: '0xabcdef1234567890abcdef1234567890abcdef12',
       type: 'Organization',
       date: '1 day ago',
       files: ['genome_sequence_v1.fasta', 'proteomics_data.xlsx'],
@@ -39,6 +42,7 @@ const mockData = {
         name: 'Dr. Michael Rodriguez', 
         organization: 'National Genomics Institute',
       },
+      address: '0x7890abcdef1234567890abcdef1234567890abcd',
       type: 'Researcher',
       granted: '01/15/2023',
       expires: '07/15/2023',
@@ -52,6 +56,7 @@ const mockData = {
         name: 'GeneTech Solutions', 
         organization: 'Biotechnology Company',
       },
+      address: '0x4567890abcdef1234567890abcdef1234567890ab',
       type: 'Organization',
       granted: '03/10/2023',
       expires: '03/10/2024',
@@ -65,6 +70,54 @@ const mockData = {
 const AccessControlPage = () => {
   const [activeTab, setActiveTab] = useState('requests');
   const [searchQuery, setSearchQuery] = useState('');
+
+  const registerUser = async (userAddress:any) => {
+    const contract = await getContract();
+    const regUser=userAddress;
+    if (!contract || !regUser )return alert("Enter a valid address");
+  
+    try {
+      console.log("Registering user:", contract);
+      // const bytes32Address = addressToBytes32(regUser); // Convert address to bytes32
+      console.log("Bytes32 Address:", regUser);
+      console.log(contract)
+      const tx = await contract.registerUser(regUser); // Pass bytes32 to the contract
+      await tx.wait();
+      console.log("user registered ", tx);
+      alert("User registered successfully!");
+    } catch (error) {
+      console.error("Registration failed:", error);
+    }
+  };
+
+  const grantAccess = async () => {
+    const contract = await getContract();
+    // cosnt ipfsHash=Response.ipfsHash 
+    // const sharedUser=Response.userAddress 
+    try{
+      if (!contract || !sharedUser) return alert("Enter a valid address");
+      const tx = await contract.grantAccess(ipfsHash, sharedUser);
+      await tx.wait();
+      alert("Access granted!");
+    }catch(error){
+      console.error("error from grantAccess:", error);
+    }
+  };
+
+  const revokeAccess = async () => {
+    const contract = await getContract();
+    // cosnt ipfsHash=Response.ipfsHash 
+    // const sharedUser=Response.userAddress 
+
+    try{
+      if (!contract || !sharedUser) return alert("Enter a valid address");
+      const tx = await contract.revokeAccess(ipfsHash, sharedUser);
+      await tx.wait();
+      alert("Access revoked!");
+    }catch(error){
+      console.error("error from revokeAccess:", error);
+    }
+  };
   
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-20">
@@ -206,7 +259,7 @@ const AccessControlPage = () => {
               {mockData.pendingRequests.length > 0 ? (
                 <div className="space-y-6">
                   {mockData.pendingRequests.map((request) => (
-                    <div key={request.id} className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+                    <div key={request.id} onClick={() => registerUser(request.address)} className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
                       <div className="p-6">
                         <div className="flex flex-col md:flex-row justify-between">
                           <div className="flex items-start space-x-4">

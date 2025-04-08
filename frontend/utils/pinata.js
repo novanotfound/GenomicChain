@@ -1,7 +1,12 @@
 import { PinataSDK } from "pinata";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+console.log(process.env.PINATA_JWT);
+console.log(process.env.GATEWAY_URL);
 
 export const pinata = new PinataSDK({
-  pinataJwt: `${process.env.VITE_PINATA_JWT}`,
-  pinataGateway: `${process.env.VITE_GATEWAY_URL}`,
-});
-
+  pinataJwt: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI3YTQ5YWU2NS1iMDVlLTQ1YzUtOWNkZi02YjFjOTdjYmU0OGMiLCJlbWFpbCI6Imxha3NoeWFwcmF0YXBzaW5naHNpc29kaXlhMTVAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBpbl9wb2xpY3kiOnsicmVnaW9ucyI6W3siZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjEsImlkIjoiRlJBMSJ9LHsiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjEsImlkIjoiTllDMSJ9XSwidmVyc2lvbiI6MX0sIm1mYV9lbmFibGVkIjpmYWxzZSwic3RhdHVzIjoiQUNUSVZFIn0sImF1dGhlbnRpY2F0aW9uVHlwZSI6InNjb3BlZEtleSIsInNjb3BlZEtleUtleSI6IjRjMjI0NTVlZjBmZGZhZmRmMDRkIiwic2NvcGVkS2V5U2VjcmV0IjoiNDE0NTM0OTk2YjMxNGMwYWExNmNhZmRhZmRiYjU0NTRmOWQ1NWE4Y2RkZTIzMGYxNGY1ODIzODk4ZTI0MWNkYSIsImV4cCI6MTc3NTMyODEyOX0.Kl-mODXU-Ef6QFlZCUo8s55mCCiA66LT8UlGM9oFW9c',
+  pinataGateway: 'yellow-quickest-raccoon-303.mypinata.cloud',
+})

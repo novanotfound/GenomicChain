@@ -6,7 +6,7 @@ import contractABI from "./abis/genomicDataStorage.json"; // Import your contrac
 import { addressToBytes32 } from "../utils/TypeConversion";
 
 // VITE_CONTRACT_ADDRESS= 
-const CONTRACT_ADDRESS = "Contract_ADDRESS";
+const CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
 export default function App() {
   const [account, setAccount] = useState(null);
@@ -49,8 +49,16 @@ export default function App() {
 
   const uploadToIPFS = async () => {
     try {
-      if(!file) return alert("Select a file first");
-      const upload = await pinata.upload.public.file(file)
+      // const formData = new FormData();
+      // formData.append('file', file);
+      // const filee = new File(["hell?o world!"], "hello.txt", { type: "text/plain" });
+      const upload = await pinata.upload.public.file(file); 
+      // const response = await fetch('http://localhost:3001/api/pinata/upload-text', {
+      //   method: 'POST',
+      //   body: formData
+      // });
+      console.log(upload);
+      console.log("after");
       console.log(upload);
       const hashedCID = hashCID(upload.cid);
       setIpfsHash(hashedCID);

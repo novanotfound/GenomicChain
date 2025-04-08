@@ -6,11 +6,14 @@ import { FiX } from 'react-icons/fi';
 import {pinata} from '../utils/pinata.js'
 import { getContract } from "../utils/getContract";
 import { hashCID } from "../utils/generateHash";
+import { ethers } from 'ethers';
+
 
 interface UploadModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
 
 const UploadModal = ({ isOpen, onClose }: UploadModalProps) => {
   const [file, setFile] = useState<File | null>(null);
@@ -22,31 +25,44 @@ const UploadModal = ({ isOpen, onClose }: UploadModalProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
-    const uploadToIPFS = async () => {
-        try {
-          if(!file) return alert("Select a file first");
-          const upload = await pinata.upload.public.file(file)
-          console.log(upload);
-          const hashedCID = hashCID(upload.cid);
-          setIpfsHash(hashedCID);
-          console.log(hashedCID);
-          alert(`File uploaded! IPFS Hash: ${upload}`);
-        } catch (error) {
-          console.log(error);
+  const uploadToIPFS = async () => {
+    try {
+        if (!file) {
+            throw new Error("No file selected for upload.");
         }
-      };
-  
-    const uploadFile = async () => {
-      try {
-        const contract = await getContract();
-        const tx = await contract.uploadFile(ipfsHash);
-        await tx.wait();
-        // setMessage("File uploaded successfully!");
-      } catch (error) {
-        console.error(error);
-        // setMessage("Error uploading file.");
-      }
-    };
+        const upload = await pinata.upload.public.file(file);
+        console.log("File uploaded to IPFS:", upload);
+
+        // const upload = await response.json();
+        const cid = upload.cid;
+        const hashedCID = hashCID(cid);
+        setIpfsHash(hashedCID);
+
+        // alert(`File uploaded! IPFS Hash: ${cid}`);
+    } catch (error) {
+        console.error("Error uploading to IPFS:", error);
+    }
+};
+
+const uploadFile = async () => {
+  try {
+    console.log("Getting contract...");
+    const contract = await getContract();
+    console.log("Contract instance:", contract);
+    const paymentAmount = ethers.parseEther("0.1");
+    console.log("IPFS Hash:", ipfsHash);
+    const tx = await contract.uploadFile(ipfsHash, {
+      value: paymentAmount
+    });
+    console.log("Transaction sent:", tx);
+
+    console.log("Waiting for transaction confirmation...");
+    const receipt = await tx.wait();
+    console.log("Transaction confirmed:", receipt);
+  } catch (error) {
+    console.error("Error during uploadFile:", error);
+  }
+};
 
   // Close modal when clicking outside
   useEffect(() => {
@@ -123,7 +139,7 @@ const UploadModal = ({ isOpen, onClose }: UploadModalProps) => {
     setFile(selectedFile);
   };
 
-  const handleUpload = () => {
+  const handleUpload =async () => {
     if (!file) return;
     setIsUploading(true);
     
@@ -139,8 +155,8 @@ const UploadModal = ({ isOpen, onClose }: UploadModalProps) => {
       }
       setUploadProgress(Math.round(progress));
     }, 300);
-    uploadToIPFS();
-    uploadFile();
+    await uploadToIPFS();
+    await uploadFile();
   };
 
   const resetUpload = () => {
@@ -381,4 +397,4 @@ const UploadModal = ({ isOpen, onClose }: UploadModalProps) => {
   );
 };
 
-export default UploadModal; 
+export default UploadModal;
