@@ -280,7 +280,7 @@ const TransactionsPage = () => {
                     <div className="p-1 rounded-full bg-dna-green/10 text-dna-green mr-2">
                       <FiDownload className="w-4 h-4" />
                     </div>
-                    <span>Download - Retrieving genomic data from storage</span>
+                    <span>Download - Retrieving  data from storage</span>
                   </li>
                   <li className="flex items-center">
                     <div className="p-1 rounded-full bg-dna-yellow/10 text-dna-yellow mr-2">

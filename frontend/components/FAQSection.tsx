@@ -142,7 +142,7 @@ const FAQSection = () => {
               Our team is here to help with any questions about genomic data security, blockchain technology, or how to use the GenomicChain platform.
             </p>
             <div className="flex justify-center">
-              <button className="dna-button">
+              <button className="dna-button text-center rounded-xl py-3 px-8 text-lg">
                 Contact Support
               </button>
             </div>
