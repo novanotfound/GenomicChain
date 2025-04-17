@@ -1,9 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import DnaAnimation from './DnaAnimation';
 
 const HeroSection = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -40,7 +40,7 @@ const HeroSection = () => {
             </div>
             <div className="md:w-1/2">
               <div className="relative w-full h-80 md:h-96 lg:h-[500px] flex items-center justify-center">
-                <div className="text-[180px] md:text-[300px] lg:text-[400px]">🧬</div>
+                {/* Static DNA Placeholder (maybe change it more later) */}
               </div>
             </div>
           </div>
@@ -50,7 +50,7 @@ const HeroSection = () => {
   }
   
   return (
-    <section className="relative pt-40 pb-32 overflow-hidden">
+    <section className="relative pt-28 pb-28 overflow-hidden">
       {/* Subtle background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-white via-gray-50 to-gray-100 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 opacity-95"></div>
       
@@ -134,7 +134,7 @@ const HeroSection = () => {
             </motion.div>
           </motion.div>
           
-          {/* Hero Image - Just DNA */}
+          {/*Animation Container (outer wala) */}
           <motion.div 
             className="md:w-1/2"
             initial={{ opacity: 0, scale: 0.8 }}
@@ -142,29 +142,17 @@ const HeroSection = () => {
             transition={{ duration: 0.8 }}
           >
             <div className="relative w-full h-80 md:h-96 lg:h-[500px] flex items-center justify-center">
-              <motion.div
-                className="absolute w-full h-full rounded-full bg-blue-500/5 filter blur-3xl"
-                animate={{ scale: [1, 1.05, 1] }}
-                transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
+              {/*DNA Animation with vertical orientation */}
+              <div className="w-full h-full flex items-center justify-center">
+              <DnaAnimation
+                width="80px"
+                height="450px"
+                strands={30}
+                primaryColor="#4F46E5"
+                secondaryColor="#10B981"
+                className="transform scale-100 md:scale-125 lg:scale-150"
               />
-              <motion.div 
-                className="text-[180px] md:text-[300px] lg:text-[400px]"
-                animate={{ 
-                  y: [0, -20, 0],
-                  rotateY: [0, 180, 360],
-                  rotateZ: [0, 10, -10, 0],
-                  scale: [1, 1.05, 0.95, 1]
-                }}
-                transition={{ 
-                  repeat: Infinity, 
-                  duration: 8,
-                  times: [0, 0.5, 0.75, 1],
-                  ease: "easeInOut"
-                }}
-                style={{ transformStyle: "preserve-3d" }}
-              >
-                🧬
-              </motion.div>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -189,4 +177,4 @@ const HeroSection = () => {
   );
 };
 
-export default HeroSection; 
+export default HeroSection;

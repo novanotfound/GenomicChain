@@ -72,7 +72,7 @@ const CTASection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              Secure Your Genomic Future
+              Secure Your  Future
             </motion.h2>
             
             <motion.p 
@@ -120,12 +120,12 @@ const CTASection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <Link href="/auth/signup" className="dna-button text-center py-3 px-8 text-lg">
+              <Link href="/auth/signup" className="dna-button text-center rounded-xl py-3 px-8 text-lg">
                 Get Started For Free
               </Link>
-              <Link href="/pricing" className="bg-white dark:bg-gray-700 text-gray-900 dark:text-white py-3 px-8 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-300 shadow-md text-center text-lg">
+              {/* <Link href="/pricing" className="bg-white dark:bg-gray-700 text-gray-900 dark:text-white py-3 px-8 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-300 shadow-md text-center text-lg">
                 View Pricing
-              </Link>
+              </Link> */}
             </motion.div>
             
             {/* Trust Badge */}

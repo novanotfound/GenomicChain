@@ -31,7 +31,7 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'Features', href: '/#features' },
-    { name: 'Pricing', href: '/pricing' },
+    // { name: 'Pricing', href: '/pricing' },
     { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' },
   ];
@@ -55,8 +55,8 @@ const Navbar = () => {
         <div className="flex justify-between items-center">
           {/* Improved Logo */}
           <Link href="/" className="group flex items-center">
-            <span className="text-2xl transition-all duration-300 group-hover:rotate-3 group-hover:scale-110">🧬</span>
-            <div className="ml-2.5 transition-all duration-300 group-hover:translate-x-1">
+            {/* <span className="text-2xl transition-all duration-300 group-hover:rotate-3 group-hover:scale-110">🧬</span> */}
+            <div className="ml-0 transition-all duration-300 group-hover:translate-x-1">
               <span className="font-bold text-xl tracking-tighter bg-gradient-to-r from-dna-blue to-dna-green bg-clip-text text-transparent group-hover:bg-gradient-to-br">Genomic</span>
               <span className="font-extrabold text-xl tracking-tight text-gray-900 dark:text-white group-hover:text-dna-blue dark:group-hover:text-dna-green">Chain</span>
             </div>

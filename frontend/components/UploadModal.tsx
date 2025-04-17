@@ -38,6 +38,8 @@ const UploadModal = ({ isOpen, onClose }: UploadModalProps) => {
         const hashedCID = hashCID(cid);
         setIpfsHash(hashedCID);
 
+        console.log("CID:", cid);
+
         // alert(`File uploaded! IPFS Hash: ${cid}`);
     } catch (error) {
         console.error("Error uploading to IPFS:", error);
