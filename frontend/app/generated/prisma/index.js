@@ -121,7 +121,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\mausa\\Documents\\sources\\genomicChainBackend\\frontend\\app\\generated\\prisma",
+      "value": "C:\\Users\\mausa\\Documents\\sources\\genomic3\\frontend\\app\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -135,12 +135,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\mausa\\Documents\\sources\\genomicChainBackend\\frontend\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\mausa\\Documents\\sources\\genomic3\\frontend\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../../prisma",
   "clientVersion": "6.6.0",
@@ -153,13 +152,13 @@ const config = {
   "inlineDatasources": {
     "db": {
       "url": {
-        "fromEnvVar": "DATABASE_URL",
-        "value": null
+        "fromEnvVar": null,
+        "value": "postgresql://postgres:r4r3krab@localhost:5432/genomic?schema=public"
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../app/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id             Int    @id @default(autoincrement())\n  name           String\n  wallet_address String @unique\n}\n",
-  "inlineSchemaHash": "a14ae1d08a78626008855443ee68e10b20a06f2c0aa3eff03260830f9b469307",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../app/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = \"postgresql://postgres:r4r3krab@localhost:5432/genomic?schema=public\"\n}\n\nmodel User {\n  id             Int    @id @default(autoincrement())\n  name           String\n  wallet_address String @unique\n}\n",
+  "inlineSchemaHash": "29508277b0701048158adca23361c0d73aac6de8182509d4ebbcbf4a19b0d732",
   "copyEngine": true
 }
 

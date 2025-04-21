@@ -11,7 +11,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgresql://postgres:r4r3krab@localhost:5432/genomic?schema=public"
 }
 
 model User {
