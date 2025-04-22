@@ -40,7 +40,7 @@ const DashboardPage = () => {
         setWalletAddress(wallet.address);
         notify("Wallet connected");
     }
-};
+  };
   
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-20">
@@ -68,12 +68,12 @@ const DashboardPage = () => {
               <FiUpload className="w-4 h-4" />
               <span>Upload DNA Data</span>
             </button>
-            {!walletAddress && <button
+            {/* {!walletAddress && <button
                 onClick={handleConnect}
                 className="dna-button flex items-center space-x-2 py-2 px-4 rounded-md"
             >
                 Connect Wallet
-            </button>}
+            </button>} */}
           </div>
         </motion.div>
         
@@ -395,4 +395,4 @@ const DashboardPage = () => {
   );
 };
 
-export default DashboardPage; 
+export default DashboardPage;
